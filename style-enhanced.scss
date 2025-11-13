@@ -1,0 +1,359 @@
+@use "/home/jeff/.cache/wallust/ags-colors.scss" as *;
+@import "./style-media.scss";
+
+// Modern glassmorphism and neumorphism effects
+@mixin glass-effect {
+    background: linear-gradient(135deg, 
+        rgba(255, 255, 255, 0.05) 0%, 
+        rgba(255, 255, 255, 0.02) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+@mixin hover-lift {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    &:hover {
+        /* transform: translateY(-2px); */
+        box-shadow: 0 12px 28px rgba(0, 0, 0, 0.25);
+    }
+}
+
+@mixin pulse-animation {
+    animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.7; }
+}
+
+@keyframes slide-in {
+    from {
+        opacity: 0;
+        /* transform: translateY(-10px); */
+    }
+    to {
+        opacity: 1;
+        /* transform: translateY(0); */
+    }
+}
+
+* {
+    all: unset;
+}
+
+window {
+    background: transparent;
+}
+
+window.BarEnhanced {
+    font-family: "JetBrainsMono Nerd Font", "SF Pro Display", "Inter", sans-serif;
+    font-size: 13px;
+    color: #{$text};
+    animation: slide-in 0.5s ease-out;
+}
+
+.bar-container {
+    @include glass-effect;
+    background: linear-gradient(135deg, 
+        transparentize($bar-bg, 0.15) 0%, 
+        transparentize($bar-bg, 0.25) 100%);
+    border-radius: 20px;
+    margin: 10px 12px;
+    padding: 8px 16px;
+    min-height: 42px;
+    box-shadow: 
+        0 10px 40px rgba(0, 0, 0, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+// Left modules
+.left-modules {
+    padding: 0 8px;
+    
+    .launcher-btn {
+        background: linear-gradient(135deg, #{$accent}, #{$accent2});
+        color: #{$bar-bg};
+        border-radius: 14px;
+        padding: 8px 12px;
+        margin-right: 12px;
+        font-size: 18px;
+        @include hover-lift;
+        
+        &:hover {
+            background: linear-gradient(135deg, #{$accent2}, #{$accent});
+        }
+    }
+    
+    .workspaces {
+        background: transparentize($widget-bg, 0.6);
+        border-radius: 14px;
+        padding: 4px;
+        margin-right: 12px;
+        
+        .workspace-btn {
+            color: #{$text-dim};
+            min-width: 28px;
+            min-height: 28px;
+            border-radius: 10px;
+            margin: 0 2px;
+            font-size: 12px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            
+            &:hover {
+                background: transparentize($accent, 0.8);
+                color: #{$accent};
+            }
+            
+            &.active {
+                background: #{$accent};
+                color: #{$bar-bg};
+                box-shadow: 0 2px 8px transparentize($accent, 0.6);
+            }
+        }
+    }
+    
+    .profile-switch {
+        background: transparentize($widget-bg, 0.6);
+        border-radius: 14px;
+        padding: 4px;
+        
+        .profile-btn {
+            color: #{$text-dim};
+            padding: 6px 10px;
+            border-radius: 10px;
+            margin: 0 2px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            
+            &:hover {
+                background: transparentize($accent, 0.8);
+            }
+            
+            &.active {
+                background: #{$accent};
+                color: #{$bar-bg};
+            }
+        }
+    }
+}
+
+// Center modules
+.center-modules {
+    .hardware-monitor {
+        .hw-widget {
+            @include glass-effect;
+            background: transparentize($widget-bg, 0.4);
+            border-radius: 14px;
+            padding: 8px 14px;
+            margin: 0 4px;
+            transition: all 0.3s ease;
+            
+            &:hover {
+                background: transparentize($widget-bg, 0.2);
+                /* transform: scale(1.05); */
+            }
+            
+            box {
+                .hw-icon {
+                    font-size: 20px;
+                    margin-right: 8px;
+                    color: #{$accent};
+                }
+                
+                .hw-label {
+                    font-size: 10px;
+                    color: #{$text-dim};
+                    font-weight: 600;
+                    text-transform: uppercase;
+                    letter-spacing: 0.5px;
+                }
+                
+                .hw-value {
+                    font-size: 14px;
+                    font-weight: 700;
+                    color: #{$text};
+                }
+                
+                .hw-temp, .hw-info {
+                    font-size: 11px;
+                    color: #{$accent2};
+                    margin-left: 6px;
+                }
+            }
+            
+            &.cpu-widget:hover .hw-icon { color: #4CAF50; }
+            &.gpu-widget:hover .hw-icon { color: #76B900; }
+            &.ram-widget:hover .hw-icon { color: #2196F3; }
+        }
+    }
+    
+    .dev-tools {
+        .dev-btn {
+            background: transparentize($widget-bg, 0.6);
+            color: #{$text};
+            border-radius: 12px;
+            padding: 8px 12px;
+            margin: 0 4px;
+            font-size: 18px;
+            transition: all 0.3s ease;
+            
+            &:hover {
+                background: transparentize($accent, 0.8);
+                color: #{$accent};
+                /* transform: scale(1.1); */
+            }
+        }
+    }
+}
+
+// Right modules
+.right-modules {
+    padding: 0 8px;
+    
+    .updates-widget {
+        background: transparentize($widget-bg, 0.6);
+        border-radius: 12px;
+        padding: 6px 12px;
+        margin: 0 4px;
+        transition: all 0.3s ease;
+        
+        .update-icon {
+            font-size: 16px;
+            color: #{$text-dim};
+        }
+        
+        &.has-updates {
+            background: transparentize(#FFA500, 0.8);
+            @include pulse-animation;
+            
+            .update-icon {
+                color: #FFA500;
+            }
+            
+            .update-count {
+                color: #FFA500;
+                font-weight: 700;
+                font-size: 11px;
+                margin-left: 4px;
+            }
+        }
+        
+        &:hover {
+            background: transparentize($widget-bg, 0.4);
+        }
+    }
+    
+    .network-monitor {
+        @include glass-effect;
+        background: transparentize($widget-bg, 0.5);
+        border-radius: 12px;
+        padding: 6px 12px;
+        margin: 0 4px;
+        min-width: 120px;
+        transition: all 0.3s ease;
+        
+        .net-icon {
+            font-size: 18px;
+            color: #{$accent};
+            margin-right: 8px;
+        }
+        
+        .net-stat {
+            .net-arrow {
+                font-size: 10px;
+                margin-right: 4px;
+                
+                &.down { color: #4CAF50; }
+                &.up { color: #2196F3; }
+            }
+            
+            .net-value {
+                font-size: 11px;
+                font-weight: 600;
+                min-width: 60px;
+            }
+        }
+        
+        &:hover {
+            background: transparentize($widget-bg, 0.3);
+            /* transform: scale(1.05); */
+        }
+    }
+    
+    .volume-control {
+        background: transparentize($widget-bg, 0.6);
+        border-radius: 12px;
+        padding: 6px 14px;
+        margin: 0 4px;
+        transition: all 0.3s ease;
+        
+        .vol-icon {
+            font-size: 16px;
+            color: #{$accent};
+            margin-right: 6px;
+        }
+        
+        .vol-level {
+            font-weight: 600;
+            font-size: 12px;
+        }
+        
+        &:hover {
+            background: transparentize($widget-bg, 0.4);
+        }
+    }
+    
+    .clock-widget {
+        @include glass-effect;
+        background: linear-gradient(135deg, 
+            transparentize($accent, 0.85) 0%, 
+            transparentize($accent2, 0.85) 100%);
+        border-radius: 14px;
+        padding: 4px 16px;
+        margin: 0 4px;
+        
+        .time-display {
+            .time {
+                font-size: 16px;
+                font-weight: 700;
+                color: #{$text};
+                letter-spacing: 0.5px;
+            }
+            
+            .date {
+                font-size: 11px;
+                color: #{$text-dim};
+                font-weight: 500;
+            }
+        }
+        
+        &:hover {
+            background: linear-gradient(135deg, 
+                transparentize($accent, 0.75) 0%, 
+                transparentize($accent2, 0.75) 100%);
+        }
+    }
+    
+    .power-menu {
+        background: linear-gradient(135deg, #FF6B6B, #FF8E53);
+        color: white;
+        border-radius: 12px;
+        padding: 8px 10px;
+        margin-left: 8px;
+        font-size: 16px;
+        @include hover-lift;
+        
+        &:hover {
+            background: linear-gradient(135deg, #FF8E53, #FF6B6B);
+        }
+    }
+}
+
+// Responsive animations
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation: none !important;
+        transition: none !important;
+    }
+}
